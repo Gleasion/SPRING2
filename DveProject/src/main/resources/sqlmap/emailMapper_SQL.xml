@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ddit.mapper.EmailMapper">
+	
+	<insert id="saveEmailCode">
+		insert into ohhoemail(
+			email, code
+		) values (
+			#{email}, #{code}
+		)
+	</insert>
+	
+	<select id="selectEmailCode" resultType="emailVO">
+		select
+			email, code
+		from ohhoemail
+		where code = #{code}
+	</select>
+	
+	<select id="findIdEmail" parameterType="dditmemberVO" resultType="String">
+		select
+			mem_id
+		from dditmember
+		where mem_name = #{memName} and mem_email = #{memEmail}
+	</select>
+	
+	<select id="findPwEmail" parameterType="dditmemberVO" resultType="String">
+		select
+			mem_pw
+		from dditmember
+		where
+			mem_name = #{memName}
+			and mem_email = #{memEmail}
+			and mem_id = #{memId}
+	</select>
+	
+	<update id="resetPwEmail" parameterType="dditmemberVO">
+		update dditmember
+		set
+			mem_pw = #{randomPw}
+		where
+			mem_name = #{member.memName}
+			and mem_email = #{member.memEmail}
+			and mem_id = #{member.memId}
+	</update>
+
+	
+</mapper>

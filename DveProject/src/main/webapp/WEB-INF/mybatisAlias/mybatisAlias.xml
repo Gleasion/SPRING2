@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+	
+	<settings>
+		<setting name="mapUnderscoreToCamelCase" value="true"/>
+	</settings>
+	
+	<typeAliases>
+		<typeAlias type="kr.or.ddit.vo.Board" alias="board"/>
+		<typeAlias type="kr.or.ddit.vo.MemberVO" alias="memberVO"/>
+		<typeAlias type="kr.or.ddit.vo.MemberAuth" alias="memberAuth"/>
+		<typeAlias type="kr.or.ddit.vo.Item" alias="item"/>
+		<typeAlias type="kr.or.ddit.vo.Item2" alias="item2"/>
+		<typeAlias type="kr.or.ddit.vo.Item3" alias="item3"/>
+		
+		<typeAlias type="kr.or.ddit.vo.DDITMemberVO" alias="dditmemberVO"/>
+		<typeAlias type="kr.or.ddit.vo.DDITMemberAuthVO" alias="dditmemberAuthVO"/>
+		<typeAlias type="kr.or.ddit.vo.NoticeVO" alias="noticeVO"/>
+		<typeAlias type="kr.or.ddit.vo.NoticeFileVO" alias="noticeFileVO"/>
+		<typeAlias type="kr.or.ddit.vo.PaginationInfoVO" alias="pagingVO"/>
+		<typeAlias type="kr.or.ddit.controller.email.vo.EmailVO" alias="emailVO"/>
+	</typeAliases>
+		
+</configuration>

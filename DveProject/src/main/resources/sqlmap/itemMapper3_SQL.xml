@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ddit.mapper.ItemMapper3">
+	
+	<insert id="create" parameterType="item3">
+		insert into item3(
+			item_id, item_name, price, description
+		) values (
+			seq_item3.nextval, #{itemName}, #{price}, #{description}
+		)
+	</insert>
+	
+	<insert id="addAttach" parameterType="String">
+		insert into item3_attach(
+			fullname, item_id, regdate
+		) values (
+			#{fullName}, seq_item3.currval, sysdate		
+		)
+	</insert>
+	
+	<select id="list" resultType="item3">
+		select
+			item_id, item_name, price, description
+		from item3
+		where 1=1
+		order by item_id desc
+	</select>
+	
+	<select id="read" parameterType="int" resultType="item3">
+		select
+			item_id, item_name, price, description
+		from item3
+		where item_id = #{itemId}
+	</select>
+	
+	<select id="getAttach" parameterType="int" resultType="String">
+		select fullname
+		from item3_attach
+		where item_id = #{itemId}
+		order by regdate desc
+	</select>
+	
+	<update id="update" parameterType="item3">
+		update item3
+		set
+			item_name = #{itemName},
+			price = #{price},
+			description = #{description}
+		where item_id = #{itemId}
+	</update>
+	
+	<delete id="deleteAttach" parameterType="int">
+		delete from item3_attach
+		where item_id = #{itemId}
+	</delete>
+	
+	<!-- @param 어노테이션으로 넘긴 파라미터의 타입을 따로 지정 하지 않아도 됩니다. -->
+	<insert id="replaceAttach">
+		insert into item3_attach(
+			fullname, item_id, regdate
+		) values (
+			#{fullName}, #{itemId}, sysdate
+		)
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		delete from item3
+		where item_id = #{itemId}
+	</delete>
+	
+</mapper>

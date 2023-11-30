@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="kr.or.ddit.mapper.MemberMapper">
+	
+	<resultMap type="memberVO" id="memberMap">
+		<id property="userNo" column="user_no"/>
+		<result property="userNo" column="user_no"/>
+		<result property="userId" column="user_id"/>
+		<result property="userPw" column="user_pw"/>
+		<result property="userName" column="user_name"/>
+		<result property="regDate" column="reg_date"/>
+		<result property="updDate" column="upd_date"/>
+		<collection property="authList" resultMap="authMap"/>
+	</resultMap>
+	
+	<resultMap type="memberAuth" id="authMap">
+		<result property="userNo" column="user_no"/>
+		<result property="auth" column="auth"/>
+	</resultMap>
+	
+	<select id="readByUserId" parameterType="string" resultMap="memberMap">
+		select
+			m.user_no, user_id, user_pw, user_name, reg_date, upd_date, auth
+		from member m left outer join member_auth a on(m.user_no = a.user_no)
+		where user_id = #{user_id}
+	</select>
+	
+	
+	
+	
+	
+	
+	
+</mapper>

@@ -1,0 +1,105 @@
+SPRING2
+
+-------------------------------------------------
+	DevProject Settings Guide
+-------------------------------------------------
+
+# 사용 버전
+- STS : 3.9.15.RELEASE - e4.16 버전
+- JDK : 1.8
+- Apache-tomcat: 8.5
+- Servlet: 3.1
+
+# 설정 순서
+
+	1. STS 압축 해제 및 실행
+		- 압축 해제 후 STS를 실행하면 데시보드에 sts 메인 페이지가 정확하게 보여져야한다.
+		- [액박]이 뜨는 경우는 무언가 잘못 된 경우 일 수 있으니 다시 압축을 해제하여 실행하도록 한다.
+		
+	2. window - preferences 메뉴 활성
+		- enc, font 설정
+		- java JDK1.8 설정
+			> JDK 1.8 폴더 및 bin 폴더를 선택 후 추가
+			> JRE name 란에 원하는 JDK명으로 설정
+		- server apache-tomcat 8.5 설정
+			> Apache-tomcat8.5 폴더까지 선택 후 추가
+	
+	3. 스프링 MVC 프로젝트 생성
+		- Spring Legacy project 생성
+			> 프로젝트명: DevProject
+			> Template : Spring MVC Project
+			> Package : kr.or.ddit
+		
+	4. MVC 프로젝트 파일 구성 확인학
+		pom.xml : 메이븐 프로젝트 빌드 파일
+		src/main/java : 자바 소스 경로
+		src/main/resources : 리로스 파일 경로
+		src/.../WEB-INF/web.xml : 웹 컨테이너 설정 파일
+		src/.../WEB-INF/spring/root-context.xml : 스프링 설정 파일
+		src/.../WEB-INF/spring/servlet-context.xml : 스프링 웹 설정 파일
+		src/.../WEB-INF/views : 뷰 파일 경로
+		
+	5. 웹 서버 설정 변경하기
+		- 서버 OverView > timeout start second 120s 설정
+		- port 80 설정
+		- 서버 Module > path '/' 로 설정
+		
+	6. DevProject 실행 후, 등록된 프로젝트 실행하기
+		- 지금까지 설정된 부분이 이상이 있는지 없는지 확인하기 위해서 서버를 돌리고 프로젝트 실행 URL로 브라우저에서 화면을 확인한다.
+		- 초기 jsp 페이지는 Encoding 설정이 되어있지 않으므로 한글은 ?? 와 같은 깨짐으로 보여진다.(정상)
+		
+	7. 개발환경 버전 변경
+		- pom.xml
+			>java-version : 1.8
+			> springframework : 5.3.25
+			> source 및 target 1.8 변경
+			> servlet-api(서블릿 버전 변경)
+				: artifactId를 javax.servlet-api로 변경
+				: version은 3.1.0로 설정
+			
+		*** pom.xml에 새로운 dependency가 추가되거나 버전 및 설정이 변경되었을 경우,
+			run as > maven clean / maven build (Goals: compile)를 진행하여 적용시켜준다.
+			초기에 maven clean 후 build를 진행했다면 이후에는 build를 하지 않고
+			maven > update project로 maven내 수정되거나 추가된 라이브러리 적용을 진행한다.
+		
+		- web.xml
+			> 기존 2.5로 되어있는 servlet version을 3.1로 변경한다.
+			 :version : 3.1, dtd 라인버전 : 3_1
+		
+	8. DveProject 설정 변경
+		- Java Build Path
+			> 3대장을 확인
+			> JDK 1.8
+			> Apache-tomcat8.5
+			> Maven
+			
+		- Project Facets
+			> Dynamic Web Module(Servlet Version) : 3.1
+			> Java : 1.8
+			** Java를 선택 후 runtime 탭의 Apache-tomcat 설정을 체크 후 Apply
+			
+	9. web.xml 인코딩 필터 등록
+		- encodingFilter 등록하기
+		
+		<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		</filter>
+		<fiter-mapping>
+			<filter-name>encodingFilter</filter-name>
+			<url-pattern>/*</url-pattern>
+		</fiter-mapping>
+
+	10. log 레벨 설정하기
+		
+		- log4j.xml > root level debug로 변경
+		
+	
